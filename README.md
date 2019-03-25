@@ -8,3 +8,5 @@ Coupland`s method find the best of alternatives
 3: $ node index.js
 
 4: You are Awesome
+
+If not working see https://learn.javascript.ru/ajax-nodejs
