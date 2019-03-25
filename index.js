@@ -46,6 +46,9 @@ const methodCoupland = (adjacencyMatrix) => {
     return result;
 };
 
+const adjacencyMatrix = createAdjacencyMatrix(superiorityCount);
+const vectorCoupland = methodCoupland(adjacencyMatrix);
+
 console.log('\n Избиратели: \n');
 console.log(voters.map(i => `V${i}`));
 
@@ -53,9 +56,9 @@ console.log('\n Исходные данные: \n');
 console.log(sourceData);
 
 console.log('\n Матрица смежности: \n');
-console.log(createAdjacencyMatrix(superiorityCount));
+console.log(adjacencyMatrix);
 
 console.log('\n Метод Коупленда: \n');
-console.log(methodCoupland(createAdjacencyMatrix(superiorityCount)));
+console.log(vectorCoupland);
 console.log('\n');
 
