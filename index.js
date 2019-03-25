@@ -9,9 +9,10 @@ const sourceData = fileContent
         .filter(i => i !== ''));
 
 
-const voters = sourceData[0].slice().sort((a, b) => a - b);
+const alts = sourceData[0].slice().sort((a, b) => a - b);
 
 const superiorityCount = (arg1, arg2) => {
+    // console.log(arg1, arg2);
     let temp = 0;
     sourceData.map(i => {
         if (i.indexOf(arg1) < i.indexOf(arg2)) temp += 1;
@@ -21,22 +22,24 @@ const superiorityCount = (arg1, arg2) => {
 
 const createAdjacencyMatrix = (superiorityCount) => {
     const adjacencyMatrix =
-        Array.from(new Array(voters.length), () => new Array(voters.length).fill(0));
+        Array.from(new Array(alts.length), () => new Array(alts.length).fill(0));
 
-    for (let i = 0; i < voters.length; i += 1) {
-        for (let j = 0; j < voters.length; j += 1) {
-            adjacencyMatrix[i][j] = superiorityCount(voters[i], voters[j]) > voters.length / 2 ? 1 : 0;
+    for (let i = 0; i < alts.length; i += 1) {
+        for (let j = 0; j < alts.length; j += 1) {
+            const log = superiorityCount(alts[i], alts[j]);
+            // console.log(log);
+            adjacencyMatrix[i][j] = log > sourceData.length / 2 ? 1 : 0;
         }
     }
     return adjacencyMatrix;
 };
 
 const methodCoupland = (adjacencyMatrix) => {
-    let result = new Array(voters.length),
+    let result = new Array(alts.length),
         temp = 0;
 
-    for (let i = 0; i < voters.length; i += 1) {
-        for (let j = 0; j < voters.length; j += 1) {
+    for (let i = 0; i < alts.length; i += 1) {
+        for (let j = 0; j < alts.length; j += 1) {
             if (adjacencyMatrix[i][j] === 0) temp -= 1;
             else temp += 1;
         }
@@ -49,8 +52,9 @@ const methodCoupland = (adjacencyMatrix) => {
 const adjacencyMatrix = createAdjacencyMatrix(superiorityCount);
 const vectorCoupland = methodCoupland(adjacencyMatrix);
 
-console.log('\n Избиратели: \n');
-console.log(voters.map(i => `V${i}`));
+
+console.log('\n Альтернативы: \n');
+console.log(alts.map(i => `A${i}`));
 
 console.log('\n Исходные данные: \n');
 console.log(sourceData);
