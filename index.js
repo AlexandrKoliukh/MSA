@@ -35,8 +35,8 @@ const createAdjacencyMatrix = (superiorityCount) => {
 };
 
 const methodCoupland = (adjacencyMatrix) => {
-    let result = new Array(alts.length),
-        temp = 0;
+    let result = new Array(alts.length);
+    let temp = 0;
 
     for (let i = 0; i < alts.length; i += 1) {
         for (let j = 0; j < alts.length; j += 1) {
