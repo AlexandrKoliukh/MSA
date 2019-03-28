@@ -9,7 +9,7 @@ const sourceData = fileContent
     .filter(ii => ii !== ''));
 
 
-const alts = sourceData[0].slice().sort((a, b) => a - b);
+const candidates = sourceData[0].slice().sort((a, b) => a - b);
 
 const superiorityCount = (arg1, arg2) => {
   // console.log(arg1, arg2);
@@ -21,11 +21,11 @@ const superiorityCount = (arg1, arg2) => {
 };
 
 const createAdjacencyMatrix = (superiorityRule) => {
-  const adjacencyMatrix = Array.from(new Array(alts.length), () => new Array(alts.length).fill(0));
+  const adjacencyMatrix = Array.from(new Array(candidates.length), () => new Array(candidates.length).fill(0));
 
-  for (let i = 0; i < alts.length; i += 1) {
-    for (let j = 0; j < alts.length; j += 1) {
-      const log = superiorityRule(alts[i], alts[j]);
+  for (let i = 0; i < candidates.length; i += 1) {
+    for (let j = 0; j < candidates.length; j += 1) {
+      const log = superiorityRule(candidates[i], candidates[j]);
       // console.log(log);
       adjacencyMatrix[i][j] = log > sourceData.length / 2 ? 1 : 0;
     }
@@ -34,11 +34,11 @@ const createAdjacencyMatrix = (superiorityRule) => {
 };
 
 const methodCoupland = (adjacencyMatrix) => {
-  const result = new Array(alts.length);
+  const result = new Array(candidates.length);
   let temp = 0;
 
-  for (let i = 0; i < alts.length; i += 1) {
-    for (let j = 0; j < alts.length; j += 1) {
+  for (let i = 0; i < candidates.length; i += 1) {
+    for (let j = 0; j < candidates.length; j += 1) {
       if (adjacencyMatrix[i][j] === 0) temp -= 1;
       else temp += 1;
     }
@@ -48,11 +48,34 @@ const methodCoupland = (adjacencyMatrix) => {
   return result;
 };
 
+const methodCondorse = (superiorityRule) => {
+  const matrixCondorse = Array.from(new Array(candidates.length), () => new Array(candidates.length).fill(0));
+
+  for (let i = 0; i < candidates.length; i += 1) {
+    for (let j = 0; j < candidates.length; j += 1) {
+      matrixCondorse[i][j] = superiorityRule(candidates[i], candidates[j]);
+    }
+  }
+  let temp = 0;
+  const indexOfWinnerUnderAllCandidates = [];
+  // console.log(matrixCondorse);
+  for (let i = 0; i < matrixCondorse.length; i += 1) {
+    for (let j = 0; j < candidates.length; j += 1) {
+      if (matrixCondorse[i][j] > sourceData.length / 2) temp += 1;
+    }
+    if (temp + 1 === candidates.length) indexOfWinnerUnderAllCandidates.push(i);
+    temp = 0;
+  }
+  return indexOfWinnerUnderAllCandidates;
+};
+
 const adjacencyMatrix = createAdjacencyMatrix(superiorityCount);
 const vectorCoupland = methodCoupland(adjacencyMatrix);
+const resultCondorse = methodCondorse(superiorityCount);
 
-console.log('\n Альтернативы: \n');
-console.log(alts.map(i => `A${i}`));
+
+console.log('\n Кандидаты: \n');
+console.log(candidates.map(i => `A${i}`));
 
 console.log('\n Исходные данные: \n');
 console.log(sourceData);
@@ -62,4 +85,7 @@ console.log(adjacencyMatrix);
 
 console.log('\n Метод Коупленда: \n');
 console.log(vectorCoupland);
+
+console.log('\n Метод Кондорсе: \n');
+console.log(resultCondorse.length === 1 ? `Победитель по Кондорсе - A${resultCondorse[0]}` : 'Победителя по Кондорсе нет');
 console.log('\n');
