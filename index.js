@@ -87,5 +87,5 @@ console.log('\n Метод Коупленда: \n');
 console.log(vectorCoupland);
 
 console.log('\n Метод Кондорсе: \n');
-console.log(resultCondorse.length === 1 ? `Победитель по Кондорсе - A${resultCondorse[0]}` : 'Победителя по Кондорсе нет');
+console.log(resultCondorse.length === 1 ? `Победитель по Кондорсе - A${resultCondorse[0] + 1}` : 'Победителя по Кондорсе нет');
 console.log('\n');
