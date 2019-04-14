@@ -1,14 +1,12 @@
-# MSA
-Coupland`s method find the best of alternatives
+## MSA
+Реализация метода Копленда, для поиска победителей голосования.
 
-1: $ git clone https://github.com/AlexandrKoliukh/MSA.git
+# Установка
 
-2: $ npm install
+    $ git clone https://github.com/AlexandrKoliukh/MSA.git
 
-Change your sourceData
+    $ npm install
 
-3: $ node index.js
+    $ node index.js
 
-4: You are Awesome
-
-If not working see https://learn.javascript.ru/ajax-nodejs
+Исходные профили избирателей добавлять в sourceData.txt
