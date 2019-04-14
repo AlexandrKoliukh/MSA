@@ -1,7 +1,7 @@
-## MSA
+# MSA
 Реализация метода Копленда, для поиска победителей голосования.
 
-# Установка
+## Установка
 
     $ git clone https://github.com/AlexandrKoliukh/MSA.git
 
